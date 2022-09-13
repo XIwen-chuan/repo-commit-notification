@@ -3,6 +3,6 @@ COPY . .
 RUN npm config set -g registry https://registry.npm.taobao.org
 RUN npm install
 RUN npm run compile
-RUN npm run server
+RUN npm run serve
 
 WORKDIR /
