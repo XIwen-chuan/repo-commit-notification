@@ -1,8 +1,8 @@
-docker build -t learn-front .
+docker build -t repo-commit-notification .
 docker run \
--d --name learn-front \
+-d --name repo-commit-notification \
 -p 80:80 \
 --memory="2g" \
 --memory-swap="4g" \
 --network=host \
-learn-front
+repo-commit-notification
