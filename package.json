@@ -1,0 +1,28 @@
+{
+  "name": "repo-commit-notification",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile":"tsc ./src/index.ts",
+    "serve":"node ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XIwen-chuan/repo-commit-notification.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XIwen-chuan/repo-commit-notification/issues"
+  },
+  "homepage": "https://github.com/XIwen-chuan/repo-commit-notification#readme",
+  "dependencies": {
+    "@types/koa": "^2.13.5",
+    "axios": "^0.27.2",
+    "koa": "^2.13.4",
+    "koa-body": "^5.0.0"
+  }
+}
