@@ -12,12 +12,12 @@ const app:Koa = new Koa();
 // @ts-ignore
 app.use(async (ctx, next) => {
     if(ctx.request.method == "post"){
-        let requestBodyJson = JSON.parse(ctx.request.body)
-        let pusher:string = requestBodyJson.pusher.name
-        let branch:string = requestBodyJson.ref
-        let commit:string = requestBodyJson.commits.message
-        let time:string = requestBodyJson.commits.timestamp
-        let transContent = {
+        var requestBodyJson = JSON.parse(ctx.request.body)
+        var pusher:string = requestBodyJson.pusher.name
+        var branch:string = requestBodyJson.ref
+        var commit:string = requestBodyJson.commits.message
+        var time:string = requestBodyJson.commits.timestamp
+        var transContent = {
             msg_type: "post",
             content: {
                 post: {
@@ -71,7 +71,7 @@ app.use(async (ctx, next) => {
         } 
         await axios({
             method: 'post',
-            url: 'https://open.feishu.cn/open-apis/bot/v2/hook/7df5b3da-84ee-408e-b47f-0e7ec6ae0867',
+            url: '/transmit',
             data: transContent
         });
         ctx.response.status = 200
