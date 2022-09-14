@@ -47,88 +47,86 @@ var app = new Koa();
 app.use(function (ctx, next) { return __awaiter(_this, void 0, void 0, function () {
     var requestBodyJson, pusher, branch, commit, time, transContent;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                if (!(ctx.request.method == "post")) return [3 /*break*/, 2];
-                requestBodyJson = JSON.parse(ctx.request.body);
-                pusher = requestBodyJson.pusher.name;
-                branch = requestBodyJson.ref;
-                commit = requestBodyJson.commits.message;
-                time = requestBodyJson.commits.timestamp;
-                transContent = {
-                    msg_type: "post",
-                    content: {
-                        post: {
-                            zh_cn: {
-                                title: "有新的代码提交！",
-                                content: [
-                                    [
-                                        {
-                                            tag: "text",
-                                            text: "pusher: "
-                                        },
-                                        {
-                                            tag: "text",
-                                            text: pusher
-                                        },
-                                    ],
-                                    [
-                                        {
-                                            tag: "text",
-                                            text: "branch: "
-                                        },
-                                        {
-                                            tag: "text",
-                                            text: branch
-                                        },
-                                    ],
-                                    [
-                                        {
-                                            tag: "text",
-                                            text: "commit: "
-                                        },
-                                        {
-                                            tag: "text",
-                                            text: commit
-                                        },
-                                    ],
-                                    [
-                                        {
-                                            tag: "text",
-                                            text: "time: "
-                                        },
-                                        {
-                                            tag: "text",
-                                            text: time
-                                        },
-                                    ]
+        if (ctx.request.method == "post") {
+            requestBodyJson = JSON.parse(ctx.request.body);
+            pusher = requestBodyJson.pusher.name;
+            branch = requestBodyJson.ref;
+            commit = requestBodyJson.commits.message;
+            time = requestBodyJson.commits.timestamp;
+            transContent = {
+                msg_type: "post",
+                content: {
+                    post: {
+                        zh_cn: {
+                            title: "有新的代码提交！",
+                            content: [
+                                [
+                                    {
+                                        tag: "text",
+                                        text: "pusher: "
+                                    },
+                                    {
+                                        tag: "text",
+                                        text: pusher
+                                    },
+                                ],
+                                [
+                                    {
+                                        tag: "text",
+                                        text: "branch: "
+                                    },
+                                    {
+                                        tag: "text",
+                                        text: branch
+                                    },
+                                ],
+                                [
+                                    {
+                                        tag: "text",
+                                        text: "commit: "
+                                    },
+                                    {
+                                        tag: "text",
+                                        text: commit
+                                    },
+                                ],
+                                [
+                                    {
+                                        tag: "text",
+                                        text: "time: "
+                                    },
+                                    {
+                                        tag: "text",
+                                        text: time
+                                    },
                                 ]
-                            }
+                            ]
                         }
                     }
-                };
-                return [4 /*yield*/, axios({
-                        method: 'post',
-                        url: 'https://open.feishu.cn/open-apis/bot/v2/hook/7df5b3da-84ee-408e-b47f-0e7ec6ae0867',
-                        data: transContent
-                    })];
-            case 1:
-                _a.sent();
+                }
+            };
+            axios.post('https://open.feishu.cn/open-apis/bot/v2/hook/7df5b3da-84ee-408e-b47f-0e7ec6ae0867', {
+                method: 'post',
+                url: '/transmit',
+                data: transContent
+            })
+                // @ts-ignore
+                .then(function (res) {
                 ctx.response.status = 200;
                 ctx.response.body = "POST Success!";
-                return [3 /*break*/, 3];
-            case 2:
-                if (ctx.request.method == "get") {
-                    ctx.response.status = 200;
-                    ctx.response.body = "GET Success!";
-                }
-                _a.label = 3;
-            case 3: return [2 /*return*/];
+            })["catch"](function (error) {
+                ctx.response.status = 400;
+                ctx.response.body = "POST Error!";
+            });
         }
+        else if (ctx.request.method == "get") {
+            ctx.response.status = 200;
+            ctx.response.body = "GET Success!";
+        }
+        return [2 /*return*/];
     });
 }); });
 var port = 3000;
 app.listen(port, function () {
     console.log("seccess start server");
-    console.log("local: http://127.0.0.1:".concat(port));
 });
