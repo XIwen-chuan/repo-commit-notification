@@ -12,8 +12,8 @@ const app = new Koa();
 
 app.use(bodyParser());
 app.use((ctx, next) => {
-    console.log(ctx.request)
     if(ctx.request.method == "POST"){
+        console.log("--------------------------------------------")
         console.log("POST request:", ctx.request.body)
         console.log("--------------------------------------------")
         var requestBodyJson = ctx.request.body
@@ -74,7 +74,6 @@ app.use((ctx, next) => {
             }
         } 
 
-        console.log(axios)
         axios.post('https://open.feishu.cn/open-apis/bot/v2/hook/7df5b3da-84ee-408e-b47f-0e7ec6ae0867', {
                 method: 'post',
                 url: '/transmit',
@@ -95,6 +94,7 @@ app.use((ctx, next) => {
                 ctx.response.body = "POST Error!"
             })
     } else if(ctx.request.method == "GET"){
+        console.log("--------------------------------------------")
         console.log("GET request")
         ctx.response.status = 200
         ctx.response.body = "GET Success!"
