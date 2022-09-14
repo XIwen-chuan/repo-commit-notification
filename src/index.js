@@ -18,7 +18,9 @@ app.use((ctx, next) => {
         var pusher = requestBodyJson.pusher.name
         var branch = requestBodyJson.ref
         var commit = requestBodyJson.commits[0].message
-        var time = requestBodyJson.commits[0].timestamp
+        var date = requestBodyJson.commits[0].timestamp.split("T")[0]
+        var detailTime = requestBodyJson.commits[0].timestamp.split("T")[1].split("+")[0]
+        var time = "**"+date+"**"+" "+"**"+detailTime+"**"
         var transContent = {
             msg_type: "post",
             content: {
@@ -33,7 +35,7 @@ app.use((ctx, next) => {
                                 },
                                 {
                                     tag: "text",
-                                    text: pusher,
+                                    text: "**"+pusher+"**",
                                 },
                             ],
                             [
@@ -43,7 +45,7 @@ app.use((ctx, next) => {
                                 },
                                 {
                                     tag: "text",
-                                    text: branch,
+                                    text: "**"+branch+"**",
                                 },
                             ],
                             [
@@ -53,7 +55,7 @@ app.use((ctx, next) => {
                                 },
                                 {
                                     tag: "text",
-                                    text: commit,
+                                    text: "**"+commit+"**",
                                 },
                             ],
                             [
