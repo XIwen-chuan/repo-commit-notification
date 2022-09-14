@@ -13,7 +13,7 @@ const app = new Koa();
 app.use((ctx, next) => {
     console.log(ctx.request)
     if(ctx.request.method == "POST"){
-        console.log("POST request body", ctx.request.body)
+        console.log("POST request:", ctx.request)
         var requestBodyJson = JSON.parse(ctx.request.body)
         var pusher = requestBodyJson.pusher.name
         var branch = requestBodyJson.ref
