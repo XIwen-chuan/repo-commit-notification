@@ -14,13 +14,11 @@ app.use(bodyParser());
 app.use((ctx, next) => {
     if(ctx.request.method == "POST"){
         console.log("--------------------------------------------")
-        console.log("POST request:", ctx.request.body)
-        console.log("--------------------------------------------")
         var requestBodyJson = ctx.request.body
         var pusher = requestBodyJson.pusher.name
         var branch = requestBodyJson.ref
-        var commit = requestBodyJson.commits.message
-        var time = requestBodyJson.commits.timestamp
+        var commit = requestBodyJson.commits[0].message
+        var time = requestBodyJson.commits[0].timestamp
         var transContent = {
             msg_type: "post",
             content: {
@@ -77,6 +75,7 @@ app.use((ctx, next) => {
         axios.post('https://open.feishu.cn/open-apis/bot/v2/hook/7df5b3da-84ee-408e-b47f-0e7ec6ae0867', transContent)
             // @ts-ignore
             .then((res) => {
+                console.log('res')
                 console.log(res)
                 console.log("--------------------------------------------")
                 ctx.response.status = 200
