@@ -1,5 +1,5 @@
 // http.ts
-const axios = require('axios').default;
+const axios = require('axios');
 const Koa = require("koa")
 // @ts-ignore
 
@@ -10,9 +10,8 @@ const app:Koa = new Koa();
 // 对于任何请求，app将调用该异步函数处理请求：
 
 // @ts-ignore
-app.use(async (ctx, next) => {
-    
-    if(ctx.request.method == "post"){
+app.use((ctx, next) => {
+    if(ctx.request.method == "POST"){
         var requestBodyJson = JSON.parse(ctx.request.body)
         var pusher:string = requestBodyJson.pusher.name
         var branch:string = requestBodyJson.ref
@@ -88,11 +87,12 @@ app.use(async (ctx, next) => {
                 ctx.response.status = 400
                 ctx.response.body = "POST Error!"
             })
-    } else if(ctx.request.method == "get"){
+    } else if(ctx.request.method == "GET"){
         ctx.response.status = 200
         ctx.response.body = "GET Success!"
     }
-    ctx.response.body = "done"
+    ctx.response.body = "Hello!"
+    console.log("console test")
 })
 
 const port: number = 3000;
