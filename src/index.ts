@@ -69,14 +69,23 @@ app.use(async (ctx, next) => {
                 }
             }
         } 
-        await axios({
-            method: 'post',
-            url: '/transmit',
-            data: transContent
-        });
-        ctx.response.status = 200
-        ctx.response.body = "POST Success!"
-    } else if (ctx.request.method == "get"){
+
+        axios.post('https://open.feishu.cn/open-apis/bot/v2/hook/7df5b3da-84ee-408e-b47f-0e7ec6ae0867', {
+                method: 'post',
+                url: '/transmit',
+                data: transContent
+            })
+            // @ts-ignore
+            .then((res) => {
+                ctx.response.status = 200
+                ctx.response.body = "POST Success!"
+            })
+            // @ts-ignore
+            .catch((error) => {
+                ctx.response.status = 400
+                ctx.response.body = "POST Error!"
+            })
+    } else if(ctx.request.method == "get"){
         ctx.response.status = 200
         ctx.response.body = "GET Success!"
     }
@@ -85,5 +94,4 @@ app.use(async (ctx, next) => {
 const port: number = 3000;
 app.listen(port, () => {
     console.log(`seccess start server`)
-    console.log(`local: http://127.0.0.1:${port}`)
 })
