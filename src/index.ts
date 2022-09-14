@@ -78,11 +78,13 @@ app.use(async (ctx, next) => {
             })
             // @ts-ignore
             .then((res) => {
+                console.log(res)
                 ctx.response.status = 200
                 ctx.response.body = "POST Success!"
             })
             // @ts-ignore
             .catch((error) => {
+                console.log(error)
                 ctx.response.status = 400
                 ctx.response.body = "POST Error!"
             })
@@ -95,5 +97,5 @@ app.use(async (ctx, next) => {
 
 const port: number = 3000;
 app.listen(port, () => {
-    console.log(`seccess start server`)
+    console.log(`seccess start server, listen 3000`)
 })

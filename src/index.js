@@ -112,9 +112,11 @@ app.use(function (ctx, next) { return __awaiter(_this, void 0, void 0, function 
             })
                 // @ts-ignore
                 .then(function (res) {
+                console.log(res);
                 ctx.response.status = 200;
                 ctx.response.body = "POST Success!";
             })["catch"](function (error) {
+                console.log(error);
                 ctx.response.status = 400;
                 ctx.response.body = "POST Error!";
             });
@@ -129,5 +131,5 @@ app.use(function (ctx, next) { return __awaiter(_this, void 0, void 0, function 
 }); });
 var port = 3000;
 app.listen(port, function () {
-    console.log("seccess start server");
+    console.log("seccess start server, listen 3000");
 });
