@@ -1,6 +1,7 @@
 // http.ts
 const axios = require('axios');
-const Koa = require("koa")
+const Koa = require("koa");
+const bodyParser = require('koa-bodyparser');
 // @ts-ignore
 
 //转发步骤：Koa监听，Axios发送请求到Webhook
@@ -9,7 +10,7 @@ const app = new Koa();
 
 // 对于任何请求，app将调用该异步函数处理请求：
 
-// @ts-ignore
+app.use(bodyParser());
 app.use((ctx, next) => {
     console.log(ctx.request)
     if(ctx.request.method == "POST"){
@@ -98,7 +99,7 @@ app.use((ctx, next) => {
     
     ctx.response.body = "Hello!"
     
-})
+});
 
 const port = 3000;
 app.listen(port, () => {
