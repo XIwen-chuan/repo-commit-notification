@@ -11,6 +11,7 @@ const app:Koa = new Koa();
 
 // @ts-ignore
 app.use(async (ctx, next) => {
+    
     if(ctx.request.method == "post"){
         var requestBodyJson = JSON.parse(ctx.request.body)
         var pusher:string = requestBodyJson.pusher.name
@@ -89,6 +90,7 @@ app.use(async (ctx, next) => {
         ctx.response.status = 200
         ctx.response.body = "GET Success!"
     }
+    ctx.response.body = "done"
 })
 
 const port: number = 3000;

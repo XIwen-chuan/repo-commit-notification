@@ -123,6 +123,7 @@ app.use(function (ctx, next) { return __awaiter(_this, void 0, void 0, function 
             ctx.response.status = 200;
             ctx.response.body = "GET Success!";
         }
+        ctx.response.body = "done";
         return [2 /*return*/];
     });
 }); });
