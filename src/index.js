@@ -15,6 +15,7 @@ app.use((ctx, next) => {
     console.log(ctx.request)
     if(ctx.request.method == "POST"){
         console.log("POST request:", ctx.request.body)
+        console.log("--------------------------------------------")
         var requestBodyJson = ctx.request.body
         var pusher = requestBodyJson.pusher.name
         var branch = requestBodyJson.ref
@@ -82,12 +83,14 @@ app.use((ctx, next) => {
             // @ts-ignore
             .then((res) => {
                 console.log(res)
+                console.log("--------------------------------------------")
                 ctx.response.status = 200
                 ctx.response.body = "POST Success!"
             })
             // @ts-ignore
             .catch((error) => {
                 console.log(error)
+                console.log("--------------------------------------------")
                 ctx.response.status = 400
                 ctx.response.body = "POST Error!"
             })
