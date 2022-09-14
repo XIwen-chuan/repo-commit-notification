@@ -14,7 +14,7 @@ app.use(bodyParser());
 app.use((ctx, next) => {
     console.log(ctx.request)
     if(ctx.request.method == "POST"){
-        console.log("POST request:", ctx.request)
+        console.log("POST request:", ctx.request.body)
         var requestBodyJson = JSON.parse(ctx.request.body)
         var pusher = requestBodyJson.pusher.name
         var branch = requestBodyJson.ref
