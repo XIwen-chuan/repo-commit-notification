@@ -74,11 +74,7 @@ app.use((ctx, next) => {
             }
         } 
 
-        axios.post('https://open.feishu.cn/open-apis/bot/v2/hook/7df5b3da-84ee-408e-b47f-0e7ec6ae0867', {
-                method: 'post',
-                url: '/transmit',
-                data: transContent
-            })
+        axios.post('https://open.feishu.cn/open-apis/bot/v2/hook/7df5b3da-84ee-408e-b47f-0e7ec6ae0867', transContent)
             // @ts-ignore
             .then((res) => {
                 console.log(res)
