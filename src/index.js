@@ -15,64 +15,30 @@ app.use((ctx, next) => {
     if(ctx.request.method == "POST"){
         console.log("--------------------------------------------")
         var requestBodyJson = ctx.request.body
-        var pusher = requestBodyJson.pusher.name
-        var branch = requestBodyJson.ref
+        var pusher = requestBodyJson.commits[0].committer.name
+        var branch = requestBodyJson.ref.split("/")[2]
         var commit = requestBodyJson.commits[0].message
         var date = requestBodyJson.commits[0].timestamp.split("T")[0]
         var detailTime = requestBodyJson.commits[0].timestamp.split("T")[1].split("+")[0]
         var time = date+" "+detailTime
+        var url = requestBodyJson.commits[0].url
         var transContent = {
-            msg_type: "post",
-            content: {
-                post: {
-                    zh_cn: {
-                        title: "有新的代码提交！",
-                        content: [
-                            [
-                                {
-                                    tag: "text",
-                                    text: "pusher: "
-                                },
-                                {
-                                    tag: "text",
-                                    text: pusher,
-                                },
-                            ],
-                            [
-                                {
-                                    tag: "text",
-                                    text: "branch: "
-                                },
-                                {
-                                    tag: "text",
-                                    text: branch
-                                },
-                            ],
-                            [
-                                {
-                                    tag: "text",
-                                    text: "commit: "
-                                },
-                                {
-                                    tag: "text",
-                                    text: commit
-                                },
-                            ],
-                            [
-                                {
-                                    tag: "text",
-                                    text: "time: "
-                                },
-                                {
-                                    tag: "text",
-                                    text: time,
-                                },
-                            ]
-                        ]
-                    }
+            config: {
+              "wide_screen_mode": true
+            },
+            i18n_elements: {
+              zh_cn: [
+                {
+                  tag: "markdown",
+                  content: `**有新的代码提交！**
+                            **pusher: **${pusher}
+                            **branch: **${branch}
+                            **commit: **[${commit}](${url})
+                            **time: **${time}`,
                 }
+              ]
             }
-        } 
+          }
 
         axios.post('https://open.feishu.cn/open-apis/bot/v2/hook/7df5b3da-84ee-408e-b47f-0e7ec6ae0867', transContent)
             // @ts-ignore
