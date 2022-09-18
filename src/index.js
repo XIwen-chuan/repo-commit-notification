@@ -23,20 +23,23 @@ app.use((ctx, next) => {
         var time = date+" "+detailTime
         var url = requestBodyJson.commits[0].url
         var transContent = {
-            config: {
-              "wide_screen_mode": true
-            },
-            i18n_elements: {
-              zh_cn: [
-                {
-                  tag: "markdown",
-                  content: `**有新的代码提交！**
-                            **pusher: **${pusher}
-                            **branch: **${branch}
-                            **commit: **[${commit}](${url})
-                            **time: **${time}`,
-                }
-              ]
+            msg_type:"POST",
+            content:{
+                config: {
+                    "wide_screen_mode": true
+                  },
+                  i18n_elements: {
+                    zh_cn: [
+                      {
+                        tag: "markdown",
+                        content: `**有新的代码提交！**
+                                  **pusher: **${pusher}
+                                  **branch: **${branch}
+                                  **commit: **[${commit}](${url})
+                                  **time: **${time}`,
+                      }
+                    ]
+                  }
             }
           }
 
